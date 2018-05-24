@@ -1,5 +1,6 @@
 library(dplyr)
 library(lubridate)
+library(jsonlite)
 
 uiuc_weather_raw1 <- fromJSON(txt = "https://terraref.ncsa.illinois.edu/clowder/api/geostreams/datapoints?key=Pb3AUSqnUw&stream_id=4806&since=2016-03-01&until=2018-12-31")
 
