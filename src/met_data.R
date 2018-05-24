@@ -11,9 +11,7 @@ uiuc_weather1 <- uiuc_weather_raw1$properties
 uiuc_weather_raw2 <- fromJSON(txt = "https://terraref.ncsa.illinois.edu/clowder/api/geostreams/datapoints?key=Pb3AUSqnUw&stream_id=4807&since=2016-03-01&until=2018-12-31")
 uiuc_weather2 <- uiuc_weather_raw2$properties
 
-## This isn't the data station we're looking for; LeBauer told us there would be a third station that looks like the above, but this one must be incorrect; please fix
-
-uiuc_weather_raw3 <- fromJSON(txt = "https://terraref.ncsa.illinois.edu/clowder/api/geostreams/datapoints?key=Pb3AUSqnUw&stream_id=4808&since=2016-03-01&until=2018-12-31")
+uiuc_weather_raw3 <- fromJSON(txt = "https://terraref.ncsa.illinois.edu/clowder/api/geostreams/datapoints?key=Pb3AUSqnUw&stream_id=4805&since=2016-03-01&until=2018-12-31")
 uiuc_weather3 <- uiuc_weather_raw3$properties
 
 ## Example code for averaging time
