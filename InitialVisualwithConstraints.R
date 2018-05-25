@@ -30,6 +30,12 @@ abline(a=333.15 , b=0, col= 'green')
  abline(a=100, b=0, col='green')
  #abline(a=95.25, b=0, col= 'purple')
  
+ 
+ #Pressure Plot
+ plot(air_pressure, ylim= c(980, 1050), type = 'l', col='purple', main= "Air Pressure through time", xlab= "Time", ylab="Air Pressure (Pa)")
+ 
+ 
+ 
 detach(properties)
  detach(uiuc_weather_raw1)
  #############################################################################################################################################
@@ -67,6 +73,11 @@ attach(properties)
  abline(a=100, b=0, col='green')
  #abline(a=95.25, b=0, col= 'red')
  
+ 
+ #Pressure Plot
+ plot(air_pressure, ylim= c(980, 1050), type = 'l', col='purple', main= "Air Pressure through time", xlab= "Time", ylab="Air Pressure (Pa)")
+ 
+ 
  detach(properties)
  detach(uiuc_weather_raw2)
  
@@ -96,6 +107,11 @@ attach(properties)
  abline(a=0, b=0, col= 'red')
  abline(a=100, b=0, col='green')
  # abline(a=95.25, b=0, col= 'red')
+ 
+ #Pressure Plot
+ plot(air_pressure, ylim= c(980, 1050), type = 'l', col='purple', main= "Air Pressure through time", xlab= "Time", ylab="Air Pressure (Pa)")
+ 
+ 
  detach(properties)
  detach(uiuc_weather_raw3)
  
