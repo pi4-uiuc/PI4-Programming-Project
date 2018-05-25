@@ -1,24 +1,23 @@
-corrupt_temp <- function (air_temperature, lower_bound, upper_bound){
-  if(air_temperature > lower_bound && air_temperature < upper_bound) {
-    return(0)
-  } else {return(1)}
-}
 
-
-corrupt_humidity <- function (relative_humidity, lower_bound, upper_bound){
-  if(relative_humidity> lower_bound && air_temperature < upper_bound) {
-    return(0)
-  } else {return(1)}
-}
-
-
-
+#Simple code for bounds
 corrupt_temps_uiuc2 <- (uiuc_weather_raw2$properties$air_temperature < 193.15) + (uiuc_weather_raw2$properties$air_temperature > 333.15)
 
 corrupt_humidity_uiuc2 <- (uiuc_weather_raw2$properties$relative_humidity< 0) + (uiuc_weather_raw2$properties$relative_humidity > 100)
 
 
-
+# 
+# corrupt_temp <- function (air_temperature, lower_bound, upper_bound){
+#   if(air_temperature > lower_bound && air_temperature < upper_bound) {
+#     return(0)
+#   } else {return(1)}
+# }
+# 
+# 
+# corrupt_humidity <- function (relative_humidity, lower_bound, upper_bound){
+#   if(relative_humidity> lower_bound && air_temperature < upper_bound) {
+#     return(0)
+#   } else {return(1)}
+# }
 
 
 # corrupt_temps_uiuc2 <- uiuc_weather_raw2$properties$air_temperature %>% 
