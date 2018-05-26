@@ -1,43 +1,37 @@
 
-#Simple code for bounds
-corrupt_temps_uiuc2 <- (uiuc_weather_raw2$properties$air_temperature < 193.15) + (uiuc_weather_raw2$properties$air_temperature > 333.15)
-
-corrupt_humidity_uiuc2 <- (uiuc_weather_raw2$properties$relative_humidity< 0) + (uiuc_weather_raw2$properties$relative_humidity > 100)
+#Functions that flag corrupted data depending on the variable. Depending on the instrument you can set up the lower and upper bound 
 
 
-# 
-# corrupt_temp <- function (air_temperature, lower_bound, upper_bound){
-#   if(air_temperature > lower_bound && air_temperature < upper_bound) {
-#     return(0)
-#   } else {return(1)}
-# }
-# 
-# 
-# corrupt_humidity <- function (relative_humidity, lower_bound, upper_bound){
-#   if(relative_humidity> lower_bound && air_temperature < upper_bound) {
-#     return(0)
-#   } else {return(1)}
-# }
+
+corrupt_humidity <- function (lower_bound, upper_bound){
+  
+  relhumidity <- uiuc_weather_raw2$properties$relative_humidity  #Set up the relative humidity variable you want to check
+  
+  for(i in 1:length(relhumidity)){
+    if((relhumidity[i]<lower_bound)+(relhumidity[i]>upper_bound)){
+      relhumidity[i]<- 1  #'FALSE'#add [i] here
+    }
+    else{
+      relhumidity[i]<- 0 #'TRUE'#add [i] here
+    }
+  }
+  
+  plot(relhumidity, col='blue')  
+}
 
 
-# corrupt_temps_uiuc2 <- uiuc_weather_raw2$properties$air_temperature %>% 
-#   rowwise() %>% 
-#   corrupt_temp(193.15,333.15)
-
-
-# corrupt_temps_uiuc1 <- c()
-# 
-# for(i in 1:nrow(uiuc_weather_raw1)) {
-#   corrupt_temps_uiuc1 <- c(corrupt_temps_uiuc1, corrupt_temp(uiuc_weather_raw1$properties$air_temperature[i], 193.15, 333.15))
-# }
-# 
-# 
-# corrupt_temps_uiuc2 <- c()
-# 
-# for(i in 1:nrow(uiuc_weather_raw2)) {
-#   uiuc_weather_raw2$corrupt[i] <- corrupt_temp(uiuc_weather_raw1$properties$air_temperature[i], 193.15, 333.15)
-#   
-#   # corrupt_temps_uiuc2 <- c(corrupt_temps_uiuc2, corrupt_temp(uiuc_weather_raw1$properties$air_temperature[i], 193.15, 333.15))
-# }
-# 
-# View(corrupt_temps_uiuc2)
+corrupt_temperature<- function (lower_bound, upper_bound){
+  
+  airtemp <- uiuc_weather_raw2$properties$air_temperature  #Set up the relative humidity variable you want to check
+  
+  for(i in 1:length(airtemp)){
+    if((airtemp[i]<lower_bound)+(airtemp[i]>upper_bound)){
+      airtemp[i]<- 1  #'FALSE'#add [i] here
+    }
+    else{
+      airtemp[i]<- 0 #'TRUE'#add [i] here
+    }
+  }
+  
+  plot(airtemp, col='red')  
+}
