@@ -1,3 +1,4 @@
+### David's code below
 # meteorological meta-data is here: 
 # https://docs.terraref.org/user-manual/data-products/environmental-conditions#variable-names-and-units
 
@@ -5,26 +6,24 @@ library(jsonlite)
 library(dplyr)
 library(lubridate)
 
-uiuc_weather_raw1 <- fromJSON(txt = "https://terraref.ncsa.illinois.edu/clowder/api/geostreams/datapoints?key=Pb3AUSqnUw&stream_id=4806&since=2016-03-01&until=2018-12-31")
-uiuc_weather1 <- uiuc_weather_raw1$properties
+# can use parameters &since=2016-03-01&until=2018-12-31 to subset data
 
-uiuc_weather_raw2 <- fromJSON(txt = "https://terraref.ncsa.illinois.edu/clowder/api/geostreams/datapoints?key=Pb3AUSqnUw&stream_id=4807&since=2016-03-01&until=2018-12-31")
-uiuc_weather2 <- uiuc_weather_raw2$properties
+rawmet <- list()
+#3211 is AZ
 
-uiuc_weather_raw3 <- fromJSON(txt = "https://terraref.ncsa.illinois.edu/clowder/api/geostreams/datapoints?key=Pb3AUSqnUw&stream_id=4805&since=2016-03-01&until=2018-12-31")
-uiuc_weather3 <- uiuc_weather_raw3$properties
+for(stream_id in c(46431, 4806, 4807, 4805)){
+  z <- fromJSON(paste0("https://terraref.ncsa.illinois.edu/clowder/api/geostreams/datapoints?stream_id=", stream_id))
+  time <-  z %>% 
+    dplyr::select(start_time, end_time) %>% 
+    mutate(start = ymd_hms(start_time), end = ymd_hms(end_time)) %>% 
+    rowwise() %>% 
+    transmute(time = mean(c(start, end)))
+  sitename <- z$sensor_name
+  properties <- z$properties %>% select(-starts_with('source'))
+  met <- properties
+  rawmet[[sitename[1]]] <- bind_cols(time, site = sitename, properties)
+}
 
-## Example code for averaging time
+z <- bind_rows(rawmet)
+readr::write_csv(z, path = 'data/uiuc_met.csv')
 
-uiuc_weather.list <- jsonlite::fromJSON('https://terraref.ncsa.illinois.edu/clowder/api/geostreams/datapoints?key=Pb3AUSqnUw&stream_id=4807&since=2017-01-02&until=2017-01-31')
-
-uiuc_weather <- uiuc_weather.list$properties
-
-uiuc_weather_time <- uiuc_weather.list %>% 
-  select(start_time, end_time) %>% 
-  mutate(start = ymd_hms(start_time), end = ymd_hms(end_time)) %>% 
-  rowwise() %>% 
-  transmute(time = mean(c(start, end)))
-
-## append the time column
-## write out as csv
